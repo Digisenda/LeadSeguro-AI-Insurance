@@ -1,0 +1,629 @@
+{
+  "name": "Captura datos de facebook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "leadseguro-make",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        -100
+      ],
+      "id": "778c918f-bbac-41c3-ab8c-ed9b32933048",
+      "name": "Webhook",
+      "webhookId": "1e0124cd-bc13-4a81-87db-ab816091aede"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cf857e8a-8245-449f-a58e-399917be058b",
+              "name": "nombre",
+              "value": "={{ $json.body.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "1b369298-2a10-454a-bb40-e292405b84a6",
+              "name": "telefono",
+              "value": "={{ $json.body[\"teléfono\"] }}",
+              "type": "string"
+            },
+            {
+              "id": "d9f3f42d-28c4-4f97-a81e-c5ded6c714b0",
+              "name": "estado",
+              "value": "={{ $json.body.estado }}",
+              "type": "string"
+            },
+            {
+              "id": "843dfd2b-da49-498c-b1d0-047463b90337",
+              "name": "fecha_creacion",
+              "value": "= {{ $now }}",
+              "type": "string"
+            },
+            {
+              "id": "cc6532b6-5726-4897-bd07-087d3dd6f78e",
+              "name": "source",
+              "value": "\"Meta Ads\"",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -20,
+        -100
+      ],
+      "id": "0efbc5cb-a1ea-4bbe-8a39-d4ee4c355628",
+      "name": "Set. Estructurar campos iniciales"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "652e6153-baaa-4ebc-bfe6-02b57cd7e424",
+              "name": "nombre",
+              "value": "={{ $('Set. Estructurar campos iniciales').item.json.nombre }}",
+              "type": "string"
+            },
+            {
+              "id": "cd633527-555f-4885-8cc5-122d075a4ce0",
+              "name": "telefono",
+              "value": "={{ $('Set. Estructurar campos iniciales').item.json.telefono }}",
+              "type": "string"
+            },
+            {
+              "id": "f3e79b51-41f1-47ac-9c06-a02809e40e26",
+              "name": "estado",
+              "value": "={{ $('Set. Estructurar campos iniciales').item.json.estado }}",
+              "type": "string"
+            },
+            {
+              "id": "d1976536-dd56-4575-bb95-8e462d72bf14",
+              "name": "fecha_creacion",
+              "value": "={{ $('Set. Estructurar campos iniciales').item.json.fecha_creacion }}",
+              "type": "string"
+            },
+            {
+              "id": "3158543f-aeee-4f02-b8e5-3e7e78e69db7",
+              "name": "source",
+              "value": "=\"Meta Ads\"",
+              "type": "string"
+            },
+            {
+              "id": "2efd6d59-1d59-4744-9bfb-06bae648b6a7",
+              "name": "status",
+              "value": "=\"normalizado\"",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1140,
+        -100
+      ],
+      "id": "788ee87e-3fb0-4456-a118-c73069667020",
+      "name": "Nodo Set final – Normalizar resultado IA"
+    },
+    {
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  const nombre = item.json.nombre || '';\n  const telefonoRaw = item.json.telefono || '';\n  const estado = item.json.estado || '';\n\n  item.json.telefono_original = telefonoRaw;\n\n  // Inicializar campos de error\n  item.json.errores = [];\n\n  // Validar campos obligatorios\n  if (!nombre.trim()) item.json.errores.push(\"Nombre vacío\");\n  if (!estado.trim()) item.json.errores.push(\"Estado vacío\");\n  if (!telefonoRaw.trim()) item.json.errores.push(\"Teléfono vacío\");\n\n  // Si hay errores, marcar como inválido y saltar\n  if (item.json.errores.length > 0) {\n    item.json.telefono = \"INVALIDO\";\n    continue;\n  }\n\n  // Limpiar y normalizar teléfono\n  let telefono = telefonoRaw.replace(/\\D/g, '');\n\n  // Caso 1: Número ya normalizado (11 dígitos con \"1\" al inicio)\n  if (telefono.startsWith('1') && telefono.length === 11) {\n    item.json.telefono = `+${telefono}`;\n  }\n  // Caso 2: Número de 10 dígitos (sin \"1\")\n  else if (telefono.length === 10) {\n    item.json.telefono = `+1${telefono}`;\n  }\n  // Caso 3: Formato inválido\n  else {\n    item.json.errores.push(`Formato inválido: ${telefonoRaw}`);\n    item.json.telefono = \"INVALIDO\";\n  }\n}\n\nreturn $input.all();"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        -100
+      ],
+      "id": "049f00b2-2a61-4330-9c31-2378af967a70",
+      "name": "Validadcion de campos y externa "
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://www.google-analytics.com/mp/collect?measurement_id={{$json.measurement_id}}&api_secret={{$json.api_secret}}\n",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "raw",
+        "body": "={   \"client_id\": \"leadseguro-{{$json.telefono}}\",   \"events\": [     {       \"name\": \"lead_captured\",       \"params\": {         \"nombre\": \"{{$json.nombre}}\",         \"estado\": \"{{$json.estado}}\",         \"telefono\": \"{{$json.telefono}}\",         \"source\": \"{{$json.source}}\",         \"fecha_creacion\": \"{{$json.fecha_creacion}}\"       }     }   ] }",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        880,
+        -100
+      ],
+      "id": "7916e2ec-9cd5-4aab-96f2-d7181e019263",
+      "name": "Enviar evento GA4"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d7919412-6de3-4057-a6d0-714ccbdcc083",
+              "name": "measurement_id",
+              "value": "G-B5E1VXMSV8",
+              "type": "string"
+            },
+            {
+              "id": "1dbc0c53-c26e-4f28-a905-ab85bdf2eb60",
+              "name": "api_secret",
+              "value": "4rX25cosQgOIZmuaLHDSjQ",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        660,
+        -100
+      ],
+      "id": "b124e0e7-ac0b-4608-a1e1-be3ea3a63600",
+      "name": "Set credenciales GA4"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "13dhzNRnjRYs3oxkpdd-SbbGyRFlkdAUHS4acc78MyZ0",
+          "mode": "list",
+          "cachedResultName": "LeadSeguro_Log_Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13dhzNRnjRYs3oxkpdd-SbbGyRFlkdAUHS4acc78MyZ0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "captura_eventos",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fecha_hora": "={{ $json.fecha_creacion }}",
+            "nombre": "={{ $json.nombre }}",
+            "telefono": "={{ $json.telefono }}",
+            "estado": "={{ $json.estado }}",
+            "source": "={{ $json.source }}",
+            "evento": "lead_captured",
+            "observacion": "Validado y enviado a GA4"
+          },
+          "matchingColumns": [
+            "fecha_hora"
+          ],
+          "schema": [
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "evento",
+              "displayName": "evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "observacion",
+              "displayName": "observacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        1360,
+        -100
+      ],
+      "id": "0b11e963-3aef-4e9c-a520-b71cd8145888",
+      "name": "Guardar log en Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YAHivJoJjrT5w5sL",
+          "name": "Google Sheets account digisenda"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "222290d6-219d-422f-9cc2-0672c698216e",
+              "leftValue": "=Field: {{ $json.errores.length }}",
+              "rightValue": "0",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        420,
+        -60
+      ],
+      "id": "df54d78e-df4b-4d50-9bb6-710193490cab",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9a32c240-144d-45e4-ae6c-10d3ec0085f8",
+              "name": "\tCheckpoint",
+              "value": "captura_validada",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1620,
+        -100
+      ],
+      "id": "bb2eadad-db07-4f6c-8dca-6164fe6a237b",
+      "name": "\tCheckpoint – captura_validada"
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "13dhzNRnjRYs3oxkpdd-SbbGyRFlkdAUHS4acc78MyZ0",
+          "mode": "list",
+          "cachedResultName": "LeadSeguro_Log_Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13dhzNRnjRYs3oxkpdd-SbbGyRFlkdAUHS4acc78MyZ0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2072648691,
+          "mode": "list",
+          "cachedResultName": "logs_leads_con_error",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/13dhzNRnjRYs3oxkpdd-SbbGyRFlkdAUHS4acc78MyZ0/edit#gid=2072648691"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "fecha_hora": "={{ $now.toLocaleString() }}",
+            "nombre": "={{ $json.nombre }}",
+            "telefono": "={{ $json.telefono }}",
+            "estado": "={{ $json.estado }}",
+            "source": "={{ $json.source }}",
+            "errores_detectados": "={{ $json.errores[0] }}",
+            "telefono_original": "={{ $json.telefono_original }}",
+            "evento": "lead_captured",
+            "observacion": "invalidado sin enviar a GA4"
+          },
+          "matchingColumns": [
+            "fecha_hora"
+          ],
+          "schema": [
+            {
+              "id": "fecha_hora",
+              "displayName": "fecha_hora",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "nombre",
+              "displayName": "nombre",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "telefono",
+              "displayName": "telefono",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "estado",
+              "displayName": "estado",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "source",
+              "displayName": "source",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "errores_detectados",
+              "displayName": "errores_detectados",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "telefono_original",
+              "displayName": "telefono_original",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "evento",
+              "displayName": "evento",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "observacion",
+              "displayName": "observacion",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        640,
+        120
+      ],
+      "id": "0c19e0f5-4877-4781-a9e5-0cd2376e9e77",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "YAHivJoJjrT5w5sL",
+          "name": "Google Sheets account digisenda"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -220,
+        -340
+      ],
+      "id": "6231b240-2317-4938-9a03-7f5dfa0c8089",
+      "name": "Edit Fields",
+      "notes": "🧠 Módulo 001 – Captura y Normalización de Leads (Meta Ads)\nObjetivo:\nCapturar leads desde formularios de Meta Ads, validar campos clave, identificar errores, registrar logs en Google Sheets, enviar eventos a GA4 y marcar la entrada como validada.\n\nFlujo general:\n\nWebhook: Recibe datos POST del formulario de Facebook.\n\nSet – Estructurar campos iniciales: Mapea campos recibidos (nombre, teléfono, estado, fecha_creación, source).\n\nJS – Validación y Normalización:\n\nVerifica campos vacíos.\n\nEvalúa estructura de teléfono (10/11 dígitos).\n\nGenera errores si los campos están vacíos o inválidos.\n\nIF – Detección de errores:\nRama true: sin errores → continúa flujo.\nRama false: errores → registra en otro sheet (log_leads_con_error).\n\nSet credenciales GA4: Define measurement_id y api_secret.\n\nHTTP – Enviar evento GA4: Dispara evento lead_captured a GA4.\n\nSet – Normalizar resultado IA: Define valores estándar (evento, fuente, observación).\n\nGoogle Sheets – Guardar registro exitoso:\nHoja: captura_eventos.\nRegistra los leads válidos.\n\nSet – Checkpoint: Marca captura_validada.\n\nCampos esperados en entrada (body):\n\njson\nCopiar\nEditar\n{\n  \"nombre\": \"...\",\n  \"teléfono\": \"...\",\n  \"estado\": \"...\",\n  \"fecha_creación\": \"...\",\n  \"source\": \"Meta Ads\"\n}\nGoogle Sheets involucrados:\n\n✅ LeadSeguro_Log_Leads > captura_eventos\n\n🔜 LeadSeguro_Log_Leads > errores_leads (pendiente)\n\nNotas técnicas:\n\nTodos los errores se detectan en el nodo Validación de campos.\n\nLa condición {{$json.errores.length}} == 0 define el flujo principal.\n\nEl campo fecha_creación se inyecta con {{$now.toLocaleString()}}."
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Set. Estructurar campos iniciales",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set. Estructurar campos iniciales": {
+      "main": [
+        [
+          {
+            "node": "Validadcion de campos y externa ",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validadcion de campos y externa ": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Enviar evento GA4": {
+      "main": [
+        [
+          {
+            "node": "Nodo Set final – Normalizar resultado IA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set credenciales GA4": {
+      "main": [
+        [
+          {
+            "node": "Enviar evento GA4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nodo Set final – Normalizar resultado IA": {
+      "main": [
+        [
+          {
+            "node": "Guardar log en Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Set credenciales GA4",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Guardar log en Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "\tCheckpoint – captura_validada",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "adb5fee6-ac19-496a-92bd-192991bf1d5c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "00746cfa592456a8c899c186b7bf9f563d78243dab51cbd7a71fbeb7c4daff8d"
+  },
+  "id": "UT0Wi0kac0AXolvg",
+  "tags": []
+}
