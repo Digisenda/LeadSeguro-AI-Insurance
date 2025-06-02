@@ -3,67 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LeadSeguro Insurance</title>
-
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-XXXXXXXXXX');
-  </script>
-
+  <title>DigiSenda AI – Inteligencia Artificial para Emprender</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" />
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-      background: linear-gradient(to bottom right, #083344, #0f766e);
+      font-family: 'Inter', sans-serif;
+      background: #f7fafc;
+      color: #1f2937;
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, #083344, #0f766e);
       color: white;
+      padding: 4rem 2rem;
       text-align: center;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
     }
-    h1 {
+    header img {
+      max-width: 160px;
+      margin-bottom: 1rem;
+    }
+    header h1 {
       font-size: 2.5rem;
-      margin-bottom: 0.5rem;
+      margin: 0.5rem 0;
     }
-    p {
+    header p {
       font-size: 1.2rem;
-      max-width: 600px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .section {
+      padding: 4rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .section h2 {
+      font-size: 2rem;
+      color: #0f766e;
+      margin-bottom: 1rem;
+    }
+    .projects {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .project-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .project-card h3 {
+      margin-top: 0;
+      color: #0f766e;
     }
     .btn {
-      margin-top: 2rem;
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.75rem 1.5rem;
       background: #14b8a6;
       color: white;
-      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
-      border-radius: 8px;
-      transition: background 0.3s;
     }
     .btn:hover {
       background: #0d9488;
     }
+    footer {
+      background: #f1f5f9;
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
   </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5E1VXMSV8"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-B5E1VXMSV8');
+  </script>
 </head>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-B5E1VXMSV8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-B5E1VXMSV8');
-</script>
 <body>
-  <h1>LeadSeguro Insurance</h1>
-  <p>Protegiendo tu legado de amor y la tranquilidad de tus seres queridos. Estamos construyendo algo especial para ti. Mientras tanto, contáctanos directamente.</p>
-  <a href="https://wa.me/1234567890" target="_blank" class="btn">Contáctanos por WhatsApp</a>
+  <header>
+    <img src="logo_digisenda.png" alt="DigiSenda AI Logo" />
+    <h1>DigiSenda AI</h1>
+    <p>Potenciando el futuro digital con inteligencia artificial real y accesible para todos.</p>
+    <a href="https://wa.me/1234567890" class="btn">Hablemos por WhatsApp</a>
+  </header>
+
+  <section class="section">
+    <h2>¿Qué es DigiSenda?</h2>
+    <p>DigiSenda es una iniciativa para divulgar, implementar y acompañar proyectos basados en inteligencia artificial aplicada. Nuestro objetivo es empoderar a emprendedores y profesionales con herramientas reales, éticas y escalables.</p>
+  </section>
+
+  <section class="section">
+    <h2>Especialidades</h2>
+    <ul>
+      <li>Automatización de procesos con IA</li>
+      <li>Generación de leads y agentes inteligentes</li>
+      <li>Soluciones sin código para negocios digitales</li>
+      <li>Educación y divulgación sobre Inteligencia Artificial</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>Proyectos Destacados</h2>
+    <div class="projects">
+      <div class="project-card">
+        <h3>LeadSeguro AI</h3>
+        <p>Sistema de captación y contacto inteligente para seguros de gastos finales. Automatización con IA, voz y CRM integrado.</p>
+        <a href="#leadseguro" class="btn">Visitar proyecto</a>
+      </div>
+      <div class="project-card">
+        <h3>Misión P7</h3>
+        <p>Proyecto educativo de desarrollo personal y emprendimiento digital. Próximamente reactivado con integración IA.</p>
+        <a href="https://digisenda.com/digisenda" class="btn">Ver más</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>¿Querés aplicar IA en tu proyecto?</h2>
+    <p>Suscribite gratis y recibí una guía práctica con 3 sistemas de IA que podés implementar desde hoy, sin saber programar.</p>
+    <a href="https://wa.me/1234567890" class="btn">Solicitar guía</a>
+  </section>
+
+  <footer>
+    © 2025 DigiSenda AI – Todos los derechos reservados. | <a href="privacidad.html">Privacidad</a> | <a href="terminos.html">Términos</a>
+  </footer>
 </body>
 </html>
+
