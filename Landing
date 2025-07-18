@@ -1,0 +1,132 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Lexend%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Stitch Design</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  </head>
+  <body>
+    <div
+      class="relative flex size-full min-h-screen flex-col bg-[#fcf8f8] justify-between group/design-root overflow-x-hidden"
+      style="--checkbox-tick-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(252,248,248)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3cpath d=%27M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z%27/%3e%3c/svg%3e'); font-family: Lexend, &quot;Noto Sans&quot;, sans-serif;"
+    >
+      <div>
+        <div class="flex items-center bg-[#fcf8f8] p-4 pb-2 justify-between">
+          <h2 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center pl-12 pr-12">Seguro de Gastos Finales</h2>
+        </div>
+        <div class="@container">
+          <div class="@[480px]:px-4 @[480px]:py-3">
+            <div
+              class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-[#fcf8f8] @[480px]:rounded-xl min-h-[218px]"
+              style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB-wcOZlH8eibi2fj6maRQUgt6Ukplz9W5cNBa9UyNyd6TZXUppAF9T2zLclaLF0-9aagA18fxNOd4dE6c7ehXBe_lG1EMkHoCGUaKWqZ_Me5iapgqZ4BXIWQFzBiFIEKmVW_xgIW2Dgz-PGfHPMRxW7INgwWaszpaOPirj8QLF5jdgcHufoHZcMNMy5sm7pZI1EbpWkJ94Qy_SqknvAi-s2f6XmWJdHqyRqw88lZ3AnHosIyVsuWVD0wLXezIDD5X7I3FGBOwRC_s");'
+            ></div>
+          </div>
+        </div>
+        <h2 class="text-[#1b0e0e] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Protege a tu familia con un seguro de gastos finales en Texas</h2>
+        <div class="flex px-4 py-3">
+          <button
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 flex-1 bg-[#ea2832] text-[#fcf8f8] text-base font-bold leading-normal tracking-[0.015em]"
+          >
+            <span class="truncate">Recibir info por SMS</span>
+          </button>
+        </div>
+        <p class="text-[#994d51] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center underline">
+          Al hacer clic en 'Recibir info por SMS', aceptas nuestros Términos de Servicio y Política de Privacidad.
+        </p>
+        <p class="text-[#1b0e0e] text-base font-normal leading-normal pb-3 pt-1 px-4 text-center">Cotización gratuita en minutos, sin complicaciones</p>
+        <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Beneficios Clave</h3>
+        <div class="px-4">
+          <label class="flex gap-x-3 py-3 flex-row">
+            <input
+              type="checkbox"
+              class="h-5 w-5 rounded border-[#e7d0d1] border-2 bg-transparent text-[#ea2832] checked:bg-[#ea2832] checked:border-[#ea2832] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#e7d0d1] focus:outline-none"
+            />
+            <p class="text-[#1b0e0e] text-base font-normal leading-normal">Tarifas fijas que no aumentan con la edad ni problemas de salud</p>
+          </label>
+          <label class="flex gap-x-3 py-3 flex-row">
+            <input
+              type="checkbox"
+              class="h-5 w-5 rounded border-[#e7d0d1] border-2 bg-transparent text-[#ea2832] checked:bg-[#ea2832] checked:border-[#ea2832] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#e7d0d1] focus:outline-none"
+            />
+            <p class="text-[#1b0e0e] text-base font-normal leading-normal">Cobertura inmediata desde el primer día tras el pago</p>
+          </label>
+          <label class="flex gap-x-3 py-3 flex-row">
+            <input
+              type="checkbox"
+              class="h-5 w-5 rounded border-[#e7d0d1] border-2 bg-transparent text-[#ea2832] checked:bg-[#ea2832] checked:border-[#ea2832] checked:bg-[image:--checkbox-tick-svg] focus:ring-0 focus:ring-offset-0 focus:border-[#e7d0d1] focus:outline-none"
+            />
+            <p class="text-[#1b0e0e] text-base font-normal leading-normal">Sin exámenes médicos ni físicos</p>
+          </label>
+        </div>
+        <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Cómo Funciona</h3>
+        <div class="grid grid-cols-[40px_1fr] gap-x-2 px-4">
+          <div class="flex flex-col items-center gap-1 pt-3">
+            <div class="text-[#1b0e0e]" data-icon="MagnifyingGlass" data-size="24px" data-weight="regular">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                <path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"></path>
+              </svg>
+            </div>
+            <div class="w-[1.5px] bg-[#e7d0d1] h-2 grow"></div>
+          </div>
+          <div class="flex flex-1 flex-col pt-3 pb-5"><p class="text-[#1b0e0e] text-base font-medium leading-normal">Solicita tu cotización</p></div>
+          <div class="flex flex-col items-center gap-1">
+            <div class="w-[1.5px] bg-[#e7d0d1] h-2"></div>
+            <div class="text-[#1b0e0e]" data-icon="ListBullets" data-size="24px" data-weight="regular">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                <path
+                  d="M80,64a8,8,0,0,1,8-8H216a8,8,0,0,1,0,16H88A8,8,0,0,1,80,64Zm136,56H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Zm0,64H88a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16ZM44,52A12,12,0,1,0,56,64,12,12,0,0,0,44,52Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,116Zm0,64a12,12,0,1,0,12,12A12,12,0,0,0,44,180Z"
+                ></path>
+              </svg>
+            </div>
+            <div class="w-[1.5px] bg-[#e7d0d1] h-2 grow"></div>
+          </div>
+          <div class="flex flex-1 flex-col pt-3 pb-5"><p class="text-[#1b0e0e] text-base font-medium leading-normal">Revisa tus opciones</p></div>
+          <div class="flex flex-col items-center gap-1 pb-3">
+            <div class="w-[1.5px] bg-[#e7d0d1] h-2"></div>
+            <div class="text-[#1b0e0e]" data-icon="ShieldCheck" data-size="24px" data-weight="regular">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                <path
+                  d="M208,40H48A16,16,0,0,0,32,56v58.78c0,89.61,75.82,119.34,91,124.39a15.53,15.53,0,0,0,10,0c15.2-5.05,91-34.78,91-124.39V56A16,16,0,0,0,208,40Zm0,74.79c0,78.42-66.35,104.62-80,109.18-13.53-4.51-80-30.69-80-109.18V56H208ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.68l50.34-50.34a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flex flex-1 flex-col pt-3 pb-5"><p class="text-[#1b0e0e] text-base font-medium leading-normal">Protege a tu familia</p></div>
+        </div>
+        <h3 class="text-[#1b0e0e] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4">Preguntas Frecuentes</h3>
+        <div class="p-4 grid grid-cols-[20%_1fr] gap-x-6">
+          <div class="col-span-2 grid grid-cols-subgrid border-t border-t-[#e7d0d1] py-5">
+            <p class="text-[#994d51] text-sm font-normal leading-normal">¿Qué es el seguro de gastos finales?</p>
+            <p class="text-[#1b0e0e] text-sm font-normal leading-normal">Es un seguro de vida que cubre gastos funerarios y otros gastos finales.</p>
+          </div>
+          <div class="col-span-2 grid grid-cols-subgrid border-t border-t-[#e7d0d1] py-5">
+            <p class="text-[#994d51] text-sm font-normal leading-normal">¿Cuánto cuesta?</p>
+            <p class="text-[#1b0e0e] text-sm font-normal leading-normal">El costo varía según la edad y la cobertura, pero las tarifas son fijas.</p>
+          </div>
+          <div class="col-span-2 grid grid-cols-subgrid border-t border-t-[#e7d0d1] py-5">
+            <p class="text-[#994d51] text-sm font-normal leading-normal">¿Cómo solicito?</p>
+            <p class="text-[#1b0e0e] text-sm font-normal leading-normal">Puedes solicitar una cotización gratuita en línea o por teléfono.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="flex px-4 py-3">
+          <button
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 flex-1 bg-[#ea2832] text-[#fcf8f8] text-base font-bold leading-normal tracking-[0.015em]"
+          >
+            <span class="truncate">Recibir info por SMS</span>
+          </button>
+        </div>
+        <div class="h-5 bg-[#fcf8f8]"></div>
+      </div>
+    </div>
+  </body>
+</html>
